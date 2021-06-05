@@ -1,9 +1,12 @@
 import csv
+from os import replace
 import string
 import math
+
 from nltk.corpus import stopwords
 from nltk.corpus.reader import lin
 from nltk.stem.wordnet import WordNetLemmatizer
+from nltk.util import pr
 
 count = dict()      # Todos
 
@@ -27,10 +30,13 @@ with open('./TrainingDS.csv', 'r') as csv_file:
 
     next(csv_reader)
     lmtzr = WordNetLemmatizer()
-
+    
     for line in csv_reader:
-        text = ''.join([i for i in line[1] if i not in string.punctuation]).lower().split(' ')
-        # text = line[1].lower().split(' ')
+        translator = str.maketrans(string.punctuation, ' '*len(string.punctuation)) #map punctuation to space
+            
+        text = ''.join([i for i in line[1].translate(translator) if i not in string.punctuation]).lower().split(' ')
+        
+
         NoStopWords = [lmtzr.lemmatize(x) for x in text if not x in stopwords.words('english')] # lema y palabras cerradas
         entrada["ID"] = int(line[0])
         entrada["Text"] = ' '.join(NoStopWords)
@@ -58,9 +64,15 @@ with open('./TrainingDS.csv', 'r') as csv_file:
     count = sorted(count.items(), key=lambda k: k[1], reverse=True)
     count = dict((x, y) for x, y in count)
     countL = len(count)
-    print(count)
     
     # frecuencia inversa del documento
-    idft = []
-    idft = dict((line,math.log(countL/count[line])) for line in count)
-    print(idft)
+    idf = []
+    idf = dict((line,math.log(countL/count[line])) for line in count)
+    
+    tf = []
+    
+    # Vectores
+    # Puede optimizarse
+    for line in saveIn:
+        for x in idf:
+            tf.append({line["ID"]: {x: idf[x] * line["Text"].count(x)}})
