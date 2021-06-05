@@ -5,11 +5,26 @@ import math
 
 from nltk.corpus import stopwords
 from nltk.corpus.reader import lin
+from nltk.corpus.reader.wordnet import Lemma
 from nltk.stem.wordnet import WordNetLemmatizer
 from nltk.util import pr
 
 count = dict()      # Todos
 
+# Crear lista
+def createList(r1, r2):
+    if (r1 == r2):
+        return r1
+  
+    else:
+        res = []
+
+        while(r1 < r2+1 ):
+              
+            res.append(r1)
+            r1 += 1
+        return res
+        
 # Cuenta las palabras segun su clasificacion
 def word_count(str):
     words = []
@@ -33,11 +48,11 @@ with open('./TrainingDS.csv', 'r') as csv_file:
     
     for line in csv_reader:
         translator = str.maketrans(string.punctuation, ' '*len(string.punctuation)) #map punctuation to space
-            
-        text = ''.join([i for i in line[1].translate(translator) if i not in string.punctuation]).lower().split(' ')
-        
+        text = ''.join([i for i in line[1].translate(translator) if i not in string.punctuation]).lower().split(' ') # elimina puntuacion y convierte a minusculas
+        # text = ''.join([i for i in line[1] if i not in string.punctuation]).lower().split(' ')
 
         NoStopWords = [lmtzr.lemmatize(x) for x in text if not x in stopwords.words('english')] # lema y palabras cerradas
+        
         entrada["ID"] = int(line[0])
         entrada["Text"] = ' '.join(NoStopWords)
         entrada["Class"] = int(line[2])
@@ -76,3 +91,12 @@ with open('./TrainingDS.csv', 'r') as csv_file:
     for line in saveIn:
         for x in idf:
             tf.append({line["ID"]: {x: idf[x] * line["Text"].count(x)}})
+    
+    # with open('vectores.csv', 'w') as new_file:
+    #     headers = createList(1,1500)
+    #     csv_writer = csv.DictWriter(new_file, fieldnames=headers)
+
+    # Clasificadores
+    # Bayes -> Supervisado
+    # J48 -> Supervisado
+    # IBK -> No Supervisado -> WEKA
