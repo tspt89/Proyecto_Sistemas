@@ -89,12 +89,18 @@ with open('./TrainingDS.csv', 'r') as csv_file:
     # Vectores
     # Puede optimizarse
     for line in saveIn:
+        temp = dict()
         for x in idf:
-            tf.append({line["ID"]: {x: idf[x] * line["Text"].count(x)}})
+            temp[x] = idf[x] * line["Text"].count(x)
+        tf.append(temp)
     
-    # with open('vectores.csv', 'w') as new_file:
-    #     headers = createList(1,1500)
-    #     csv_writer = csv.DictWriter(new_file, fieldnames=headers)
+    with open('vectores1.csv', 'w') as new_file:
+        headers = count.keys()
+        csv_writer = csv.DictWriter(new_file, fieldnames=headers)
+        csv_writer.writeheader()
+
+        for line in tf:
+            csv_writer.writerow(line)
 
     # Clasificadores
     # Bayes -> Supervisado
