@@ -2,6 +2,7 @@ import csv
 from os import replace
 import string
 import math
+import numpy as np
 
 from nltk.corpus import stopwords
 from nltk.corpus.reader import lin
@@ -91,11 +92,19 @@ with open('./TrainingDS.csv', 'r') as csv_file:
     for line in saveIn:
         temp = dict()
         for x in idf:
+            temp["ID"] = line["ID"]
             temp[x] = idf[x] * line["Text"].count(x)
+            temp["Class"] = line["Class"]
         tf.append(temp)
-    
+    # print(tf[0].get("Class"))
+    nCount = [key for key in count]
     with open('vectores1.csv', 'w') as new_file:
-        headers = count.keys()
+        headers = []
+        headers.append("ID")
+        headers.extend(count.keys())
+        headers.append("Class")
+        # headers.flatten() 
+        print(headers)
         csv_writer = csv.DictWriter(new_file, fieldnames=headers)
         csv_writer.writeheader()
 
