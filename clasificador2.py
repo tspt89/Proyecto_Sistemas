@@ -5,7 +5,7 @@ import pandas as pd
 from sklearn.datasets import load_iris
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier
-from sklearn.metrics import accuracy_score, recall_score, confusion_matrix
+from sklearn.metrics import precision_score, recall_score, confusion_matrix
 from sklearn import preprocessing
 
 labelEncoder = preprocessing.LabelEncoder()
@@ -30,11 +30,11 @@ clf.fit(x_train, y_train)
 
 y_pred = clf.predict(x_test)
 
-accuracy = accuracy_score(y_test,y_pred)*100
+precision = precision_score(y_test,y_pred)*100
 recall = recall_score(y_test,y_pred)*100
-matrizC = confusion_matrix(y_test, y_pred)
+matrizC = confusion_matrix(y_test, y_pred, labels=[1,0])
 
-print("Accuaracy: ", accuracy)
+print("Precision: ", precision)
 print("Recall: ", recall)
 print("Matriz de confusion:\n", matrizC)
 
@@ -55,11 +55,11 @@ for i in files:
 
     y_pred = clf.predict(x_test)
 
-    accuracy = accuracy_score(y_test,y_pred)*100
+    precision = precision_score(y_test,y_pred)*100
     recall = recall_score(y_test,y_pred)*100
-    matrizC = confusion_matrix(y_test, y_pred)
+    matrizC = confusion_matrix(y_test, y_pred, labels=[1,0])
 
-    print("Accuaracy: ", accuracy)
+    print("Precision: ", precision)
     print("Recall: ", recall)
     print("Matriz de confusion:\n", matrizC)
 
