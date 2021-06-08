@@ -12,6 +12,7 @@ from nltk.util import pr
 
 count = dict()      # Todos
 
+# Genera con palabra cerrada
 # Crear lista
 def createList(r1, r2):
     if (r1 == r2):
@@ -52,7 +53,7 @@ with open('./TrainingDS.csv', 'r') as csv_file:
         text = ''.join([i for i in line[1].translate(translator) if i not in string.punctuation]).lower().split(' ') # elimina puntuacion y convierte a minusculas
         # text = ''.join([i for i in line[1] if i not in string.punctuation]).lower().split(' ')
 
-        NoStopWords = [lmtzr.lemmatize(x) for x in text if not x in stopwords.words('english')] # lema y palabras cerradas
+        NoStopWords = [x for x in text if not x in stopwords.words('english')] # lema y palabras cerradas
         
         entrada["ID"] = int(line[0])
         entrada["Text"] = ' '.join(NoStopWords)
@@ -98,7 +99,7 @@ with open('./TrainingDS.csv', 'r') as csv_file:
         tf.append(temp)
     # print(tf[0].get("Class"))
     nCount = [key for key in count]
-    with open('vectores1.csv', 'w') as new_file:
+    with open('vectores3.csv', 'w') as new_file:
         headers = []
         headers.append("ID")
         headers.extend(count.keys())
