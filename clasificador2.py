@@ -32,11 +32,18 @@ y_pred = clf.predict(x_test)
 
 precision = precision_score(y_test,y_pred)*100
 recall = recall_score(y_test,y_pred)*100
-matrizC = confusion_matrix(y_test, y_pred, labels=[1,0])
+# matrizC = confusion_matrix(y_test, y_pred, labels=[1,0])
 
+tn, fp, fn, tp = confusion_matrix(y_test, y_pred).ravel()
+newM = [[tp, fp],[fn, tn]]
 print("Precision: ", precision)
 print("Recall: ", recall)
-print("Matriz de confusion:\n", matrizC)
+cmtx = pd.DataFrame(
+    newM, 
+    index=['Positive', 'Negative'], 
+    columns=['Positive', 'Negative']
+    )
+print(cmtx)
 
 # Vectores
 files = ["vectores1.csv", "vectores2.csv", "vectores3.csv"]
@@ -57,11 +64,19 @@ for i in files:
 
     precision = precision_score(y_test,y_pred)*100
     recall = recall_score(y_test,y_pred)*100
-    matrizC = confusion_matrix(y_test, y_pred, labels=[1,0])
+    # matrizC = confusion_matrix(y_test, y_pred, labels=[1,0])
 
+    tn, fp, fn, tp = confusion_matrix(y_test, y_pred).ravel()
+    newM = [[tp, fp],[fn, tn]]
     print("Precision: ", precision)
     print("Recall: ", recall)
-    print("Matriz de confusion:\n", matrizC)
+    print("Matriz de confusion:\n")
+    cmtx = pd.DataFrame(
+    newM, 
+    index=['Positive', 'Negative'], 
+    columns=['Positive', 'Negative']
+    )
+    print(cmtx)
 
 # Y = Labels
 # X = Features
