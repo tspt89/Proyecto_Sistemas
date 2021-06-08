@@ -10,9 +10,10 @@ from nltk.corpus.reader.wordnet import Lemma
 from nltk.stem.wordnet import WordNetLemmatizer
 from nltk.util import pr
 
-count = dict()      # Todos
+count = dict()      # Todas las palabras y su frecuencia
 
 ### Genera con lema y palabra cerrada ###
+
 # Crear lista
 def createList(r1, r2):
     if (r1 == r2):
@@ -49,7 +50,7 @@ with open('./TrainingDS.csv', 'r') as csv_file:
     lmtzr = WordNetLemmatizer()
     
     for line in csv_reader:
-        translator = str.maketrans(string.punctuation, ' '*len(string.punctuation)) #map punctuation to space
+        translator = str.maketrans(string.punctuation, ' '*len(string.punctuation)) # conversion de puntuacion a espacios
         text = ''.join([i for i in line[1].translate(translator) if i not in string.punctuation]).lower().split(' ') # elimina puntuacion y convierte a minusculas
         # text = ''.join([i for i in line[1] if i not in string.punctuation]).lower().split(' ')
 
