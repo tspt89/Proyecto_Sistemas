@@ -33,28 +33,31 @@ y_pred = gnb.predict(x_test)
 accuracy = accuracy_score(y_test,y_pred)*100
 
 matrizC = confusion_matrix(y_test, y_pred)
-print(accuracy)
-print(matrizC)
+print("Accuaracy: ", accuracy)
+print("Matriz de confusion:\n", matrizC)
 
+# Vectores
+files = ["vectores1.csv", "vectores2.csv", "vectores3.csv"]
 
-df = pd.read_csv('vectores1.csv')
-x = df.drop(['Class'], axis=1)
-y = df['Class']
+for i in files:
+    df = pd.read_csv(i)
+    x = df.drop(['Class'], axis=1)
+    y = df['Class']
 
-print("\nVectores")
-print(x)
-x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.25, random_state=42)
+    print("\n",i)
+    print(x)
+    x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.25, random_state=42)
 
-gnb = GaussianNB()
-gnb.fit(x_train, y_train)
+    gnb = GaussianNB()
+    gnb.fit(x_train, y_train)
 
-y_pred = gnb.predict(x_test)
+    y_pred = gnb.predict(x_test)
 
-accuracy = accuracy_score(y_test,y_pred)*100
+    accuracy = accuracy_score(y_test,y_pred)*100
 
-matrizC = confusion_matrix(y_test, y_pred)
-print(accuracy)
-print(matrizC)
+    matrizC = confusion_matrix(y_test, y_pred)
+    print("Accuaracy: ", accuracy)
+    print("Matriz de confusion:\n", matrizC)
 
-# Y = Labels
-# X = Features
+    # Y = Labels
+    # X = Features

@@ -12,7 +12,7 @@ from nltk.util import pr
 
 count = dict()      # Todos
 
-# Genera con palabra cerrada
+### Genera con palabra cerrada ###
 # Crear lista
 def createList(r1, r2):
     if (r1 == r2):

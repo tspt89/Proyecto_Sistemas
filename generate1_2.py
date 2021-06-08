@@ -12,7 +12,7 @@ from nltk.util import pr
 
 count = dict()      # Todos
 
-# Genera con lema
+### Genera con lema ###
 # Crear lista
 def createList(r1, r2):
     if (r1 == r2):
